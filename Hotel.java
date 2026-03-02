@@ -115,4 +115,35 @@ public class Hotel {
         }
             
     }
+
+    void bookingRoom() {
+        Scanner input = new Scanner(System.in);
+        int numRoom;
+        System.out.print("\n========== BOOK ROOM ==========\n");
+
+        while (true) {
+            System.out.print("\nEnter Room Number: ");
+            
+            if (input.hasNextInt()) {
+                numRoom = input.nextInt();
+
+                if (numRoom >= 101 && numRoom <= 199) {
+                    break;
+                } else {
+                    System.out.print("Invalid! Room number must be between 101 - 199.\n");
+                }
+            } else {
+                System.out.print("Invalid! Number only.\n");
+                input.next();
+            }
+        }
+
+        System.out.print("\nRoom booked successfully!\n");
+
+        for (int i = 0; i < roomCount; i++) {
+            if (rooms[i].roomNumber == numRoom) {
+                rooms[i].isBooked = true;
+            }
+        }
+    }
 }
