@@ -6,6 +6,7 @@ public class HotelBookingSystem {
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
+        Hotel h = new Hotel();
         int startMenu;
 
         while (true) {
@@ -22,9 +23,13 @@ public class HotelBookingSystem {
 
             switch (startMenu) {
                 case 1:
-                    
+                    h.addRoom();
                     break;
                 
+                case 2:
+                    h.displayAllRooms();
+                    break;
+
                 case 5:
                     System.out.print("\nThank You For Using Our System.");
                     System.out.print("\nSystem Terminated.");
