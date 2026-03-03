@@ -17,6 +17,7 @@ public class HotelBookingSystem {
             System.out.print("\n1. Add Room");
             System.out.print("\n2. Display All Rooms");
             System.out.print("\n3. Book Room");
+            System.out.print("\n4. Checkout Room");
             System.out.print("\n5. Exit\n");
 
             System.out.print("\nEnter choice: ");
@@ -32,6 +33,10 @@ public class HotelBookingSystem {
                     break;
                 case 3:
                     h.bookingRoom();
+                    break;
+                
+                case 4:
+                    h.checkoutRoom();
                     break;
 
                 case 5:
