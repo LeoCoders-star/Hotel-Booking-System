@@ -1,17 +1,18 @@
 package Project9;
 
+import java.util.Scanner;
+
 public class Room {
     int roomNumber;
     String roomType;
-    double roomPrice;
+    double pricePerNight;
     boolean isBooked;
+    Customer customer;
 
     Room(int i, String p, double o, boolean k) {
         roomNumber = i;
         roomType = p;
-        roomPrice = o;
+        pricePerNight = o;
         isBooked = k;
     }
-
-    
 }

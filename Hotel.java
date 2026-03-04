@@ -13,10 +13,12 @@ public class Hotel {
         double roomPrice;
         boolean exist;
 
-        System.out.print("\n========== ADD ROOM ==========\n");
+        System.out.print("\n=====================================================");
+        System.out.print("\n                    ADD ROOM");
+        System.out.print("\n=====================================================\n");
 
         while (true) {
-            System.out.print("Enter Room Number: ");
+            System.out.print("Enter Room Number (101 - 199) : ");
 
             if (input.hasNextInt()) {
                 roomNumber = input.nextInt();
@@ -34,7 +36,7 @@ public class Hotel {
                         }
 
                         if (exist) {
-                            System.out.print("Invalid! Room number already added.\n\n");
+                            System.out.print("Invalid! Room " + roomNumber + " already exists.\n\n");
                         } else {
                             break;
                         }
@@ -74,7 +76,7 @@ public class Hotel {
         }
 
         while (true) {
-            System.out.print("Enter Room Price (RM): ");
+            System.out.print("Enter Room Price Per Night (RM): ");
 
             if (input.hasNextDouble()) {
                 roomPrice = input.nextDouble();
@@ -90,6 +92,10 @@ public class Hotel {
             }
         }
 
+        System.out.print("\n-----------------------------------------------------");
+        System.out.print("\nRoom added successfully!\n\n");
+        Utility.pressEnter();
+
         rooms[roomCount] = new Room(roomNumber, roomType, roomPrice, false);
         roomCount++;
 
@@ -98,11 +104,13 @@ public class Hotel {
     void displayAllRooms() {
         String roomStatus;
 
-        System.out.print("\n=========== ROOM LIST ===========\n\n");
+        System.out.print("\n=====================================================");
+        System.out.print("\n                    ROOM LIST");
+        System.out.print("\n=====================================================\n\n");
 
-        System.out.printf("%-4s %-12s %-12s %-12s %-15s\n", 
+        System.out.printf("%-4s %-12s %-12s %-12s %-15s \n", 
                                 "No", "Room No", "Type", "Price", "Status");
-        System.out.print("-----------------------------------------------------------\n");
+        System.out.print("-----------------------------------------------------------------------\n");
 
         for (int i = 0; i < roomCount; i++) {
             if (rooms[i].isBooked) {
@@ -111,15 +119,21 @@ public class Hotel {
                 roomStatus = "Available";
             }
 
-            System.out.printf("%-4s %-12s %-12s RM%-10.2f %-15s\n", (i+1), rooms[i].roomNumber, rooms[i].roomType, rooms[i].roomPrice, roomStatus);
+            System.out.printf("%-4s %-12s %-12s RM%-10.2f %-15s\n", (i+1), rooms[i].roomNumber, rooms[i].roomType, rooms[i].pricePerNight, roomStatus);
         }
-            
+
+        System.out.print("\n-----------------------------------------------------------------------\n");
+        System.out.print("\nTotal Rooms: " + roomCount + "\n\n");
+        Utility.pressEnter();
     }
 
     void bookingRoom() {
         Scanner input = new Scanner(System.in);
-        int numRoom;
+        int numRoom, customerPhoneNum, customerDays;
         boolean found;
+        String customerName;
+        double payment = 0;
+
         System.out.print("\n========== BOOK ROOM ==========\n");
 
         while (true) {
@@ -127,6 +141,7 @@ public class Hotel {
             
             if (input.hasNextInt()) {
                 numRoom = input.nextInt();
+                input.nextLine();
 
                 if (numRoom >= 101 && numRoom <= 199) {
                     found = false;
@@ -139,15 +154,16 @@ public class Hotel {
                                 return;
                             } else {
                                 rooms[i].isBooked = true;
-                                System.out.print("\nRoom booked successfully!\n");
-                                return;
+                                break;
                             }
                         }
                     }
 
                     if (!found) {
                         System.out.print("Invalid! Room not found!\n");
+                        return;
                     }
+                    break;
                 } else {
                     System.out.print("Invalid! Room number must be between 101 - 199.\n");
                 }
@@ -156,6 +172,71 @@ public class Hotel {
                 input.next();
             }
         }
+
+        System.out.print("\n--- CUSTOMER INFORMATION ---\n");
+
+        while (true) {
+            System.out.print("\nEnter Customer Name: ");
+            customerName = input.nextLine();
+
+            if (customerName.matches("[a-zA-Z ]+")) {
+                break;
+            } else {
+                System.out.print("Invalid! Words only.\n");
+            }
+        }
+
+        while (true) {
+            System.out.print("Enter Phone Number: ");
+
+            if (input.hasNextInt()) {
+                customerPhoneNum = input.nextInt();
+                break;
+            } else {
+                System.out.print("Invalid! Number only.\n");
+                input.next();
+            }
+        }
+
+        while (true) {
+            System.out.print("Enter Number of Days: ");
+
+            if (input.hasNextInt()) {
+                customerDays = input.nextInt();
+                break;
+            } else {
+                System.out.print("Invalid! Number only.\n");
+                input.next();
+            }
+        }
+
+        for (int i = 0; i < roomCount; i++) {
+            if (rooms[i].roomNumber == numRoom) {
+                rooms[i].isBooked = true;
+                rooms[i].customer = new Customer(customerName, customerPhoneNum, customerDays);
+                payment = Utility.calculatePayment(customerDays, rooms[i].pricePerNight);
+                break;
+            }
+        }
+
+        System.out.print("\n-----------------------------------------------------");
+        System.out.print("\nBOOKING SUCCESSFUL!\n");
+
+        System.out.print("\nBooking Summary: ");
+        System.out.print("\n-----------------------------------------------------");
+
+        for (int i = 0; i < roomCount; i++) {
+            if (rooms[i].roomNumber == numRoom) {
+                System.out.print("\nRoom Number             : " + rooms[i].roomNumber);
+                System.out.print("\nRoom Type               : " + rooms[i].roomType);
+                System.out.printf("\nPrice Per Night         : RM%.2f", rooms[i].pricePerNight);
+                System.out.print("\nDays                    : " + rooms[i].customer.days);
+                System.out.printf("\nTotal Payment           : RM%.2f", payment);
+            }
+        }
+        System.out.print("\n\n");
+        Utility.pressEnter();
+
     }
 
     void checkoutRoom() {
