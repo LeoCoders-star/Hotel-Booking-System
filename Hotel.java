@@ -134,7 +134,9 @@ public class Hotel {
         String customerName;
         double payment = 0;
 
-        System.out.print("\n========== BOOK ROOM ==========\n");
+        System.out.print("\n=====================================================");
+        System.out.print("\n                    BOOK ROOM");
+        System.out.print("\n=====================================================\n");
 
         while (true) {
             System.out.print("\nEnter Room Number: ");
@@ -243,7 +245,9 @@ public class Hotel {
         Scanner input = new Scanner(System.in);
         int numRoom;
         boolean found;
-        System.out.print("\n========== CHECKOUT ROOM ==========\n");
+        System.out.print("\n=====================================================");
+        System.out.print("\n                 CHECKOUT ROOM");
+        System.out.print("\n=====================================================\n");
 
         while (true) {
             System.out.print("\nEnter Room Number: ");
@@ -260,8 +264,12 @@ public class Hotel {
 
                             if (rooms[i].isBooked) {
                                 rooms[i].isBooked = false;
-                                System.out.print("\nCheckout successfully!\n");
-                                return;
+                                System.out.print("\n-----------------------------------------------------");
+                                System.out.print("\nCHECKOUT SUMMARY\n");
+                                rooms[i].displayRoom();
+                                System.out.print("\n\n-----------------------------------------------------");
+                                break;
+                                //return;
                             } else {
                                 System.out.print("\nInvalid! Room " + rooms[i].roomNumber + " already available.\n");
                                 return;
@@ -271,6 +279,7 @@ public class Hotel {
                     if (!found) {
                         System.out.print("Invalid! Room not found.\n");
                     }
+                    break;
                 } else {
                     System.out.print("Invalid! Room number must be between 101 - 199.\n");
                 }
@@ -279,5 +288,9 @@ public class Hotel {
                 input.next();
             }
         }
+
+        System.out.print("\nCheckout successfully!");
+        System.out.print("\nRoom " + numRoom + " is now available.\n\n");
+        Utility.pressEnter();
     }
 }
