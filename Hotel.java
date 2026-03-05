@@ -140,25 +140,32 @@ public class Hotel {
         System.out.print("\n                AVAILABLE ROOMS");
         System.out.print("\n=====================================================\n");
 
-        System.out.printf("\n%-8s %-12s %-12s", "Room", "Type", "Price");
-        System.out.print("\n-----------------------------------------------------");
-
         for (int i = 0; i < roomCount; i++) {
             if (!rooms[i].isBooked) {
                 noneRoom = false;
-                System.out.printf("\n%-8s %-12s RM%-12.2f", rooms[i].roomNumber, rooms[i].roomType, rooms[i].pricePerNight);
-                availableRooms++;
             }
         }
 
-        if (noneRoom == true) {
-            System.out.print("\nNo available rooms at the moment.");
-        }
-        
-        System.out.print("\n\n-----------------------------------------------------");
-        System.out.print("\nTotal Available Rooms: " + availableRooms + "\n\n");
+        if (!noneRoom) {
+            System.out.printf("\n%-8s %-12s %-12s", "Room", "Type", "Price");
+            System.out.print("\n-----------------------------------------------------");
 
-        Utility.pressEnter();
+            for (int i = 0; i < roomCount; i++) {
+                if (!rooms[i].isBooked) {
+                    noneRoom = false;
+                    System.out.printf("\n%-8s %-12s RM%-12.2f", rooms[i].roomNumber, rooms[i].roomType, rooms[i].pricePerNight);
+                    availableRooms++;
+                }
+            }
+        
+            System.out.print("\n\n-----------------------------------------------------");
+            System.out.print("\nTotal Available Rooms: " + availableRooms + "\n\n");
+
+            Utility.pressEnter();
+        } else {
+            System.out.print("\nNo available rooms at the moment.\n\n");
+            Utility.pressEnter();
+        }
     }
 
     void bookingRoom() {
