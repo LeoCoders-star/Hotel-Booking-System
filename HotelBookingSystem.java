@@ -17,9 +17,10 @@ public class HotelBookingSystem {
             System.out.print("\n1. Add Room");
             System.out.print("\n2. Display All Rooms");
             System.out.print("\n3. Display Available Rooms");
-            System.out.print("\n4. Book Room");
-            System.out.print("\n5. Checkout Room");
-            System.out.print("\n6. Exit\n");
+            System.out.print("\n4. Display Booked Rooms");
+            System.out.print("\n5. Book Room");
+            System.out.print("\n6. Checkout Room");
+            System.out.print("\n7. Exit\n");
 
             System.out.print("\nEnter choice: ");
             startMenu = input.nextInt();
@@ -38,14 +39,18 @@ public class HotelBookingSystem {
                     break;
 
                 case 4:
+                    h.displayBookedRooms();
+                    break;
+
+                case 5:
                     h.bookingRoom();
                     break;
                 
-                case 5:
+                case 6:
                     h.checkoutRoom();
                     break;
 
-                case 6:
+                case 7:
                     System.out.print("\nThank You For Using Our System.");
                     System.out.print("\nSystem Terminated.");
                     System.exit(0);
