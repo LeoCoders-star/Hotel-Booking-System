@@ -229,7 +229,7 @@ public class Hotel {
                         if (rooms[i].roomNumber == numRoom) {
                             found = true;
                             if (rooms[i].isBooked) {
-                                System.out.print("\nInvalid! Room " + rooms[i].roomNumber + " already book.\n");
+                                System.out.print("\nInvalid! Room " + rooms[i].roomNumber + " already booked.\n");
                                 return;
                             } else {
                                 rooms[i].isBooked = true;
@@ -387,7 +387,7 @@ public class Hotel {
 
                 if (numRoom < 101 || numRoom > 199) {
                     System.out.print("Invalid! Room number must be between 101 - 199.\n");
-                    return;
+                    continue;
                 }
                 
                 for (int i = 0; i < roomCount; i++) {
@@ -438,5 +438,41 @@ public class Hotel {
         } else {
             System.out.print("Room Number " + numRoom + " not found.\n");
         }
+    }
+
+    void hotelSummary() {
+        int bookRooms = 0, availableRooms = 0;
+        double income = 0, temporayIncome = 0;
+
+        System.out.print("\n=====================================================");
+        System.out.print("\n                  HOTEL SUMMARY");
+        System.out.print("\n=====================================================\n");
+
+        for (int i = 0; i < roomCount; i++) {
+            if (rooms[i].isBooked) {
+                temporayIncome = Utility.calculatePayment(rooms[i].customer.days, rooms[i].pricePerNight);
+                income += temporayIncome;
+                bookRooms++;
+            } else {
+                availableRooms++;
+            }
+        }
+
+        System.out.print("\nTotal Rooms               : " + roomCount);
+        System.out.print("\nTotal Booked Rooms        : " + bookRooms);
+        System.out.print("\nTotal Available           : " + availableRooms);
+        System.out.print("\n---------------------------------------");
+        System.out.printf("\nTotal Income              : RM%.2f", income);
+
+        System.out.print("\n\n");
+        Utility.pressEnter();
+    }
+
+    void exit() {
+        System.out.print("\n=====================================================");
+        System.out.print("\n        Thank You For Using Our System");
+        System.out.print("\n=====================================================\n");
+
+        System.out.print("\nSystem Terminated Successfully.");
     }
 }
