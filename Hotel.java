@@ -201,8 +201,7 @@ public class Hotel {
         } else {
             System.out.print("\nNo booked rooms at the moment.\n\n");
         }
-
-        Utility.pressEnter();
+            Utility.pressEnter();
     }
 
     void bookingRoom() {
