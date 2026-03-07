@@ -370,4 +370,74 @@ public class Hotel {
         System.out.print("\nRoom " + numRoom + " is now available.\n\n");
         Utility.pressEnter();
     }
+
+    void searchRoom() {
+        Scanner input = new Scanner(System.in);
+        int numRoom;
+        boolean noneRoom = true;
+        double totalPayment = 0;
+
+        System.out.print("\n=====================================================");
+        System.out.print("\n                    SEARCH ROOM");
+        System.out.print("\n=====================================================\n");
+
+        while (true) {
+            System.out.print("\nEnter Room Number: ");
+            if (input.hasNextInt()) {
+                numRoom = input.nextInt();
+
+                if (numRoom < 101 || numRoom > 199) {
+                    System.out.print("Invalid! Room number must be between 101 - 199.\n");
+                    return;
+                }
+                
+                for (int i = 0; i < roomCount; i++) {
+                    if (rooms[i].roomNumber == numRoom) {
+                        noneRoom = false;
+                        break;
+                    }
+                }
+                break;
+            } else {
+                System.out.print("Invalid! Number only.\n");
+                input.next();
+            }
+        }
+
+        if (!noneRoom) {
+            System.out.print("\n-----------------------------------------------------");
+            System.out.print("\nROOM DETAILS\n");
+
+            for (int i = 0; i < roomCount; i++) {
+                if (rooms[i].roomNumber == numRoom) {
+
+                    System.out.print("\nRoom Number         : " + rooms[i].roomNumber);
+                    System.out.print("\nRoom Type           : " + rooms[i].roomType);
+                    System.out.printf("\nPrice Per Night     : RM%.2f", rooms[i].pricePerNight);
+
+                    if (rooms[i].isBooked) {
+
+                        totalPayment = Utility.calculatePayment(rooms[i].customer.days, rooms[i].pricePerNight);
+                        System.out.print("\nStatus              : Booked");
+
+                        if (rooms[i].customer != null) {
+                            System.out.print("\n\nCustomer Name       : " + rooms[i].customer.name);
+                            System.out.print("\nPhone Number        : 0" + rooms[i].customer.phoneNumber);
+                            System.out.print("\nDays                : " + rooms[i].customer.days);
+                            System.out.printf("\nTotal Payment       : RM%.2f", totalPayment);
+                        } 
+
+                    } else {
+                        System.out.print("\nStatus              : Available");
+                    }
+                }
+            }
+
+            System.out.print("\n\n");
+            Utility.pressEnter();
+
+        } else {
+            System.out.print("Room Number " + numRoom + " not found.\n");
+        }
+    }
 }
